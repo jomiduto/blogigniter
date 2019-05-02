@@ -6,11 +6,7 @@
   <div class="login-box-body">
     <p class="login-box-msg">Iniciar Sesión</p>
 
-    <?php
-	    echo form_open( '', ['class' => 'std-form'] );
-	?>
-
-    <form action="" method="post">
+    <?php echo form_open('app/ajax_attempt_login', ['class' => 'std-form']).'sadsadsadsadsa'; ?>
       <div class="form-group has-feedback">
         <input type="text" name="login_string" class="form-control" placeholder="Usuario">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -34,3 +30,35 @@
   </div>
   <!-- /.login-box-body -->
 </div>
+
+<script>
+    $(document).ready(function () {
+        $(document).on('submit', 'form', function (e) {
+            $.ajax({
+                type: 'post',
+                cache: false,
+                url: '<?php echo base_url() ?>app/ajax_attempt_login',
+                data: {
+                    'login_string': $('[name="login_string"]').val(),
+                    'login_pass': $('[name="login_pass"]').val(),
+                    'loginToken': $('[name="token"]').val()
+                },
+                dataType: 'json',
+                success: function (response) {
+                    $('[name="loginToken"]').val(response.token);
+                    console.log(response);
+                    if (response.status == 1) {
+                        window.location.href = '<?php echo base_url() ?>admin';
+                    } else if (response.status == 0 && response.on_hold) {
+                        $('form').hide();
+                        $('#on-hold-message').show();
+                        alert('Intentos de inicio de sesión excesivos.');
+                    } else if (response.status == 0 && response.count) {
+                        alert('Login fallido', 'Login fallido ' + response.count + ' de ' + $('#max_allowed_attempts').val(), 'error');
+                    }
+                }
+            });
+            return false;
+        });
+    });
+</script>
