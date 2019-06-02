@@ -24,6 +24,23 @@ class MY_Controller extends Auth_Controller
 	{
 		parent::__construct();
 	}
+
+	public function init_seccion_auto($level)
+	{
+		$this->require_min_level($level);
+
+		if(!$this->auth_data)
+		{
+			//redireccionar
+		}
+
+		$this->session->set_userdata(array(
+			'email' => $this->auth_data->email,
+			'username' => $this->auth_data->username,
+			'id' => $this->auth_data->user_id,
+			'auth_level' => $this->auth_data->auth_level
+		));
+	}
 }
 
 /* End of file MY_Controller.php */

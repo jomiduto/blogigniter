@@ -1,6 +1,6 @@
 <?php 
 
-	class App extends CI_Controller //App es el nombre del archivo
+	class App extends MY_Controller //App es el nombre del archivo
 	{
 		public function __construct()//Esto es lo primero que se ejecuta
 		{
@@ -33,7 +33,7 @@
 			if( $this->input->is_ajax_request() )
 			{
 				// Allow this page to be an accepted login page
-				$this->config->set_item('allowed_pages_for_login', ['examples/ajax_attempt_login'] );
+				$this->config->set_item('allowed_pages_for_login', ['app/ajax_attempt_login'] );
 
 				// Make sure we aren't redirecting after a successful login
 				$this->authentication->redirect_after_login = FALSE;
@@ -86,6 +86,19 @@
 			{
 				show_404();
 			}
+		}
+
+		/**
+		 * Log out
+		 */
+		public function logout()
+		{
+			$this->authentication->logout();
+
+			// Set redirect protocol
+			$redirect_protocol = USE_SSL ? 'https' : NULL;
+
+			redirect( site_url( LOGIN_PAGE . '?' . AUTH_LOGOUT_PARAM . '=1', $redirect_protocol ) );
 		}
 	}
 

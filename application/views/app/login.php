@@ -6,7 +6,7 @@
   <div class="login-box-body">
     <p class="login-box-msg">Iniciar Sesión</p>
 
-    <?php echo form_open('app/ajax_attempt_login', ['class' => 'std-form']).'sadsadsadsadsa'; ?>
+    <?php echo form_open('app/ajax_attempt_login', ['class' => 'std-form']); ?>
       <div class="form-group has-feedback">
         <input type="text" name="login_string" class="form-control" placeholder="Usuario">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>

@@ -1,6 +1,6 @@
 <?php 
 
-	class Admin extends CI_Controller //Admin es el nombre del archivo
+	class Admin extends MY_Controller //Admin es el nombre del archivo - Se cambia de CI_con... a My_con cuando se incluye la libreria de login
 	{
 		public function __construct()//Esto es lo primero que se ejecuta
 		{
@@ -20,6 +20,8 @@
 			
 			$this->load->model('Post'); //Post es el nombre del modelo
 			$this->load->model('Category'); //Category es el nombre del modelo
+
+			$this->init_seccion_auto(9);//Nivel que se requiere para acceder a este controlador - Community Auth
 		}
 
 		public function index()//Carga la vista solicitada
