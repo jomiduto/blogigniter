@@ -7,7 +7,7 @@
                 <img src="<?php echo base_url() ?>assets/img/logo.png" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-                <p>Nombre</p>
+                <p><?php echo $this->session->userdata('username') ?></p>
             </div>
         </div>
 
