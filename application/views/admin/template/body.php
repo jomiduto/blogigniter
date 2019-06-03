@@ -51,11 +51,11 @@
                             </div>
                             <!-- /.box-header -->
                             <div class="box-body">
-                                {body}
-
-                                <!--Imprimir datos con Grocery Crud-->
-                                <?php $grocery_crud = json_decode($grocery_crud) ?>
-                                <?php echo $grocery_crud->output ?>
+                                <?php if(isset($body)) : ?>
+                                    {body}
+                                <?php endif; ?>
+                                <!-- Si se cumple el if muestra el template del grocery_crud -->
+                                <?php isset($grocery_crud) ? $this->load->view("admin/template/grocery_crud", ["grocery_crud" => $grocery_crud]) : '' ?>
                             </div>
                             <!-- /.box-body -->
                         </div>
