@@ -15,6 +15,8 @@
 			$this->load->library("parser"); //Libreria para usar Templates en Codeigniter
 			$this->load->library("Form_validation");// Libreria para validar los campos del formulario
 
+			$this->load->library('grocery_CRUD'); //Librería para Grocery Crud
+
 			$this->load->helper("Post_helper"); //Este helper fue creado por mi OJO esta en la carpeta helper
 			$this->load->helper("Date_helper"); //Este helper fue creado por mi OJO esta en la carpeta helper
 			
@@ -206,8 +208,17 @@
 
 		public function category_list()
 		{
-			$data["categories"] = $this->Category->findAll();
-			$view["body"] = $this->load->view('admin/category/list', $data, TRUE); //Se configura para que muestre el template, se pone null porque no carga datos
+			/*$data["categories"] = $this->Category->findAll();
+			$view["body"] = $this->load->view('admin/category/list', $data, TRUE);*/ //Se configura para que muestre el template, se pone null porque no carga datos
+			$crud = new grocery_CRUD();
+ 
+			$crud->set_theme('datatables');
+			$crud->set_table('categories');
+			$crud->set_subject('Categorías');
+			$crud->columns('category_id','name');
+	
+			$output = $crud->render();
+			$view["grocery_crud"] = json_encode($output);
 			$view["title"] = "Listar Categorías";//Se define el titulo de la página
 			$this->parser->parse("admin/template/body", $view);
 		}

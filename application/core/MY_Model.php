@@ -155,6 +155,43 @@ class MY_Model extends CI_Model
 
 		return $this->db->dbprefix( $name );
 	}
+
+	function findAll()
+	{
+		$this->db->select("");//Si se deja vacio trae todos los registros
+		$this->db->from($this->table);
+
+		$query = $this->db->get();
+		return $query->result();//Arreglo de varios datos
+	}
+
+	function find($id)
+	{
+		$this->db->select("");//Si se deja vacio trae todos los registros
+		$this->db->from($this->table);//Nombre de la tabla
+		$this->db->where($this->table_id, $id);//Id de la tabla
+
+		$query = $this->db->get();
+		return $query->row();//Un solo registro
+	}
+
+	function update($id, $data)
+	{
+		$this->db->where($this->table_id, $id);//Id de la tabla
+		$this->db->update($this->table, $data);
+	}
+
+	function delete($id)
+	{
+		$this->db->where($this->table_id, $id);//Id de la tabla
+		$this->db->delete($this->table);
+	}
+
+	function insert($data)
+	{
+		$this->db->insert($this->table, $data);
+		return $this->db->insert_id();
+	}
 	
 	// -----------------------------------------------------------------------
 }

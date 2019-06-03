@@ -52,6 +52,10 @@
                             <!-- /.box-header -->
                             <div class="box-body">
                                 {body}
+
+                                <!--Imprimir datos con Grocery Crud-->
+                                <?php $grocery_crud = json_decode($grocery_crud) ?>
+                                <?php echo $grocery_crud->output ?>
                             </div>
                             <!-- /.box-body -->
                         </div>
